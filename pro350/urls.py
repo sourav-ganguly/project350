@@ -16,8 +16,10 @@ Including another URLconf
 from django.urls import include, path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.views.generic import RedirectView
 
 urlpatterns = [
+    path('',RedirectView.as_view(url='/questions/'), name="index"),
     path('questions/', include('add_content.urls')),
     path('register/', include('login_registration.urls'), name="register"),
     path('admin/', admin.site.urls),
