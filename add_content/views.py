@@ -1,14 +1,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-from .models import Question
-from .forms import QuestionForm
+from .models import Question, Comment
+from .forms import QuestionForm, CommentForm
 
 # @login_required
 # def index(request):
@@ -24,6 +23,7 @@ from .forms import QuestionForm
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'add_content/detail.html', {'question': question})
 
+
 @login_required
 def get_question(request):
     # if this is a POST request we need to process the form data
@@ -32,9 +32,9 @@ def get_question(request):
         form = QuestionForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
+           # process the data in form.cleaned_data as required
             question_text = form.cleaned_data['question_text']
-            user = form.cleaned_data['user']
+            user = request.user
             q = Question(question_text=question_text,
                          user=user, pub_date=timezone.now())
             q.save()
@@ -46,6 +46,43 @@ def get_question(request):
         form = QuestionForm()
 
     return render(request, 'add_content/add_question.html', {'form': form})
+
+@login_required
+def get_detail_view_with_comment(request, pk):
+    question = get_object_or_404(Question, pk=pk)
+    comment_list = Comment.objects.filter(question=question)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            comment_text = form.cleaned_data['comment_text']
+            user = request.user
+            comment = Comment(
+                comment_text=comment_text,
+                question=question,
+                user=user,
+                created_date=timezone.now()
+            )
+            comment.save()
+
+            # q = Question(question_text=question_text,
+            #              user=user, pub_date=timezone.now())
+            # q.save()
+            # comment = form.save(commit=False)
+            # comment.post = post
+            # comment.save()
+
+            # return redirect('questions:detail', pk=pk)
+    #         return HttpResponseRedirect('/questions/')
+    # else:
+    new_form = CommentForm()
+    return render(request,
+                  'add_content/detail.html',
+                  {'form': new_form,
+                   'question': question,
+                   'comment_list': comment_list
+                   }
+                  )
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):

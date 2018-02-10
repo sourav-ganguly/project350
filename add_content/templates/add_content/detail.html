@@ -1,7 +1,23 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<h3>Question:</h3>
+<p>
+    {{ question }}
+</p>
+<h3>Comments:</h3>
+{% if comment_list %}
+        <ul>
+        {% for comment in comment_list %}
+            <li>{{ comment.user }} : {{ comment.comment_text }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 
-{{ question }}
+<form action="." method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
 
 {% endblock %}
