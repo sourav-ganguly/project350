@@ -5,22 +5,28 @@ from django.conf import settings
 
 class Question(models.Model):
     question_text = models.TextField(max_length=3000)
-    models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,)
+        on_delete=models.CASCADE,
+        null=True,
+    )
     pub_date = models.DateTimeField("Date published")
 
     def __str__(self):
+        """
+        String for representing the Model object.
+        """
         return self.question_text
+
 
 class Comment(models.Model):
     comment_text = models.TextField(max_length=100)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(
-                             settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE,
-                             null = True
-                            )
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+    )
     created_date = models.DateTimeField("Date published")
 
     def __str__(self):
@@ -28,9 +34,3 @@ class Comment(models.Model):
         String for representing the Model object.
         """
         return self.comment_text
-
-
-# class QuestionForm(ModelForm):
-#     class Meta:
-#         model = Question
-#         fields = ['question_text', 'user', 'pub_date']

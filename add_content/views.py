@@ -32,7 +32,7 @@ def get_question(request):
         form = QuestionForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-           # process the data in form.cleaned_data as required
+            # process the data in form.cleaned_data as required
             question_text = form.cleaned_data['question_text']
             user = request.user
             q = Question(question_text=question_text,
@@ -46,6 +46,7 @@ def get_question(request):
         form = QuestionForm()
 
     return render(request, 'add_content/add_question.html', {'form': form})
+
 
 @login_required
 def get_detail_view_with_comment(request, pk):
@@ -91,7 +92,16 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.order_by('-pub_date')
+
+
+class ProfileView(LoginRequiredMixin, generic.ListView):
+    template_name = 'add_content/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Question.objects.filter(user=self.request.user)
 
 
 class DetailView(LoginRequiredMixin, generic.DetailView):
