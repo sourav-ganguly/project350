@@ -9,11 +9,11 @@ The poor quality of the questions in village-level school make the “Srijonshil
 
 ## Our project’s functionalities:
 
-Enthusiastic question creators from different parts of the country can voluntarily create creative questions.
-End users like school teachers form village can browse the questions. They can take questions from here and modify it. Or they can just use this question as an idea for creating his own questions.
-Reviewers among the creator will review the questions uploaded. They will comment for modification and they can press like and dislike button. Based on their reviews the questions will be added into the question bank.
-The admins will control the registration of the users. The will check background of the user after registration and accept his registration. They also can ban some user. This will keep the system fraud-proof. 
-There will be a rating system for the creators and reviewers.
+- Enthusiastic question creators from different parts of the country can voluntarily create creative questions.
+- End users like school teachers form village can browse the questions. They can take questions from here and modify it. Or they can just use this question as an idea for creating his own questions.
+- Reviewers among the creator will review the questions uploaded. They will comment for modification and they can press like and dislike button. Based on their reviews the questions will be added into the question bank.
+- The admins will control the registration of the users. The will check background of the user after registration and accept his registration. They also can ban some user. This will keep the system fraud-proof. 
+- There will be a rating system for the creators and reviewers.
 
 
 ## Our project’s users:
