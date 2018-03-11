@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Question, Comment
+from .models import Question, Comment, Course
 from .forms import QuestionForm, CommentForm
 
 # @login_required
@@ -34,9 +34,17 @@ def get_question(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             question_text = form.cleaned_data['question_text']
+            question_name = form.cleaned_data['question_name']
             user = request.user
-            q = Question(question_text=question_text,
-                         user=user, pub_date=timezone.now())
+            course = Course.objects.get(
+                course_code=form.cleaned_data['course_code'])
+            q = Question(
+                question_name=question_name,
+                question_text=question_text,
+                user=user,
+                pub_date=timezone.now(),
+                course=course,
+            )
             q.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/questions/')

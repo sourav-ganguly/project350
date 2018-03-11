@@ -1,7 +1,6 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Question Bank</h1>
 <form action="{% url 'questions:add_question'}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
