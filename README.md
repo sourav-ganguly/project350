@@ -34,6 +34,7 @@ If the number of questions of the question bank is low, then the students can ea
 ### Backend
 * Django web framework
 * MySql database 
+
 ### Frontend
 * JS libraries like JQuery
 * HTML/CSS
@@ -47,5 +48,5 @@ If the number of questions of the question bank is low, then the students can ea
 - [x] Inherit design and header html from a base template
 - [x] Add comment feature with each question
 - [ ] Make the models basic to full-featured
-- [ ] Finalize all the models
+[ ] Finalize all the models
 
