@@ -46,4 +46,6 @@ If the number of questions of the question bank is low, then the students can ea
 - [x] Integrate authentication with the application
 - [x] Inherit design and header html from a base template
 - [x] Add comment feature with each question
+- [ ] Make the models basic to full-featured
+- [ ] Finalize all the models
 
