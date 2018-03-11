@@ -38,3 +38,12 @@ If the number of questions of the question bank is low, then the students can ea
 * JS libraries like JQuery
 * HTML/CSS
 
+## Task list:
+- [x] Get question from a form
+- [x] Show questions in a list 
+- [x] Add login-logout feature
+- [x] Add registration feature
+- [x] Integrate authentication with the application
+- [x] Inherit design and header html from a base template
+- [x] Add comment feature with each question
+
