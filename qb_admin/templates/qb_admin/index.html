@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h1>Question List</h1>
+    {% if latest_question_list %}
+        {% for question in latest_question_list %}
+            {% if question.status == "ACCEPTED" %}
+                <br><br>
+                <h3><a href="{% url 'questions:detail' question.id %}">
+                    {{ question.id }}: {{question.question_name}}</a></h3>
+                <p>Author: {{ question.user }}</p>
+                <p>Published: {{ question.pub_date }}</p>
+                <p>Course: {{ question.course }}</p>
+                <p>{{ question.question_text|linebreaksbr }}</p>
+                <p><form action={{question.id}} method="post">
+                    {% csrf_token %}
+                    <input type="submit" name="question_accept" value="Accept" />
+                    <input type="submit" name="question_delete" value="Delete" />
+                    </form></p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+{% else %}
+    <p>Sorry, You cannot see this page.</p>
+{% endif %}
+{% endblock %}

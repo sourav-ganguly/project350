@@ -18,4 +18,5 @@ def register(request):
             return redirect('/questions/')
     else:
         form = UserCreationForm()
-    return render(request, 'login_registration/registration.html', {'form': form})
+    return render(request, 'login_registration/registration.html',
+                  {'form': form})

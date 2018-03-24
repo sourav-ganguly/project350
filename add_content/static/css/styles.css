@@ -1,0 +1,26 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.comment {
+    margin: 20px 0px 20px 20px;
+}
+
+.question-detail-div{
+	border: 1px solid black;
+	width: fit-content;
+}
+.compact{
+    max-width: 10%; 
+	width: 10%;
+	overflow: hidden;
+    text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.expanded{
+	max-width: 100%;
+	width: 100%;
+}

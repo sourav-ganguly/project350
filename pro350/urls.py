@@ -19,9 +19,10 @@ from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('',RedirectView.as_view(url='/questions/'), name="index_t"),
+    path('', RedirectView.as_view(url='/questions/'), name="index_t"),
     path('questions/', include('add_content.urls')),
     path('register/', include('login_registration.urls'), name="register"),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('qb_admin/', include('qb_admin.urls')),
 ]
