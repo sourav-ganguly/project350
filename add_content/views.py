@@ -6,8 +6,8 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Question, Comment, Course
-from .forms import QuestionForm, CommentForm
+from .models import Question, Comment, Course, UserDetail, LogTable
+from .forms import QuestionForm, CommentForm, UserDetailForm
 
 # @login_required
 # def index(request):
@@ -57,6 +57,38 @@ def get_question(request):
 
 
 @login_required
+def get_user_details(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = UserDetailForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            age = form.cleaned_data['age']
+            profession = form.cleaned_data['profession']
+            user = request.user
+            location = form.cleaned_data['location']
+            gender = form.cleaned_data['gender']
+            user_detail = UserDetail(
+                user=user,
+                age=age,
+                location=location,
+                gender=gender,
+                profession=profession,
+            )
+            user_detail.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect('/questions/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = UserDetailForm()
+
+    return render(request, 'add_content/add_user_detail.html', {'form': form})
+
+
+@login_required
 def get_detail_view_with_comment(request, pk):
     question = get_object_or_404(Question, pk=pk)
     comment_list = Comment.objects.filter(question=question)
@@ -83,7 +115,12 @@ def get_detail_view_with_comment(request, pk):
 
             # return redirect('questions:detail', pk=pk)
     #         return HttpResponseRedirect('/questions/')
-    # else:
+    else:
+        log_table = LogTable(user=request.user,
+                             operation="View post " + str(pk),
+                             operation_time=timezone.now(),)
+        log_table.save()
+
     new_form = CommentForm()
     return render(request,
                   'add_content/detail.html',

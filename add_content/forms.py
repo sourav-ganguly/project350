@@ -1,5 +1,5 @@
 from django import forms
-from.models import Comment, Course
+from.models import Comment, Course, UserDetail
 
 
 class QuestionForm(forms.Form):
@@ -31,3 +31,10 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('comment_text',)
+
+
+class UserDetailForm(forms.ModelForm):
+
+    class Meta:
+        model = UserDetail
+        fields = ('age', 'profession', 'location', 'gender')

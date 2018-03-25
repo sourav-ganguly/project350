@@ -79,3 +79,36 @@ class Comment(models.Model):
         """
         return self.comment_text
 
+
+class UserDetail(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+    )
+    age = models.PositiveIntegerField(null=True)
+    profession = models.CharField(max_length=20, null=True)
+    location = models.CharField(max_length=20, null=True)
+    gender = models.CharField(max_length=20, null=True)
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return str(self.user)
+
+
+class LogTable(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+    )
+    operation = models.CharField(max_length=10)
+    operation_time = models.DateTimeField("Date time operation occured")
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return str(self.operation)
