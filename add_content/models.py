@@ -42,7 +42,7 @@ class Question(models.Model):
     status = models.CharField(
         max_length=9,
         choices=STATUS_CHOICES,
-        default=ACCEPTED,
+        default=PENDING,
         null=True,
     )
 
@@ -78,3 +78,4 @@ class Comment(models.Model):
         String for representing the Model object.
         """
         return self.comment_text
+

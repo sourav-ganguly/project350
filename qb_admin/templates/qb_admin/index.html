@@ -5,7 +5,7 @@
     <h1>Question List</h1>
     {% if latest_question_list %}
         {% for question in latest_question_list %}
-            {% if question.status == "ACCEPTED" %}
+            {% if question.status == "PENDING" %}
                 <br><br>
                 <h3><a href="{% url 'questions:detail' question.id %}">
                     {{ question.id }}: {{question.question_name}}</a></h3>

@@ -1,9 +1,18 @@
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
-class RegistrationForm(forms.Form):
-    question_text = forms.CharField(
-        max_length=3000, widget=forms.Textarea, required=True, label='Question')
-    user = forms.CharField(max_length=20, required=True, label='User Name')
-    password = forms.CharField(max_length=20, required=True, label='User Name')
-    ser = forms.CharField(max_length=20, required=True, label='User Name')
+class RegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "password1", "password2")
+
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
