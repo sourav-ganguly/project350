@@ -5,7 +5,6 @@
     <h1>Question List</h1>
     {% if latest_question_list %}
     {% for question in latest_question_list %}
-        {% if question.status == "ACCEPTED" %}
                 <br><br>
                 <h3><a href="{% url 'questions:detail' question.id %}">
                     {{ question.id }}: {{question.question_name}}</a></h3>
@@ -13,7 +12,6 @@
                 <p>Published: {{ question.pub_date }}</p>
                 <p>Course: {{ question.course }}</p>
                 <p class="question-detail-div">{{ question.question_text|linebreaksbr }}</p>
-            {% endif %}
         {% endfor %}
     {% else %}
         <p>No polls are available.</p>

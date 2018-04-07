@@ -146,6 +146,14 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
+        user_detail = UserDetail.objects.get(user=self.request.user)
+        user_group = user_detail.user_group
+        user_access = RoleTable.objects.filter(
+            user_group=user_group,
+            access_name="SEE_PENDING_QUESTION"
+        )
+        if not user_access:
+            return Question.objects.filter(status="ACCEPTED").order_by('-pub_date')
         return Question.objects.order_by('-pub_date')
 
 
