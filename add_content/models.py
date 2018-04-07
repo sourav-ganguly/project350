@@ -80,6 +80,16 @@ class Comment(models.Model):
         return self.comment_text
 
 
+class UserGroup(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return str(name)
+
+
 class UserDetail(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -90,12 +100,26 @@ class UserDetail(models.Model):
     profession = models.CharField(max_length=20, null=True)
     location = models.CharField(max_length=20, null=True)
     gender = models.CharField(max_length=20, null=True)
+    user_group = models.ForeignKey(
+        UserGroup,
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
     def __str__(self):
         """
         String for representing the Model object.
         """
         return str(self.user)
+
+
+class Chapter(models.Model):
+    name = models.CharField(max_length=50)
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        null=True,
+    )
 
 
 class LogTable(models.Model):
