@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<p>Logged out!</p>  
-<a href="{% url 'login'%}">Click here to login again.</a>
+<p>Logged out!</p>
+<p></p><a href="{% url 'login'%}">Click here to login again.</a></p>
+<p></p><a href="{% url 'login_registration:registration' %}">Click here to register.</a></p>
 {% endblock %}

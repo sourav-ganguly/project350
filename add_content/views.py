@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Question, Comment, Course, UserDetail, LogTable
+from .models import Question, Comment, Course, UserDetail, LogTable, RoleTable
 from .forms import QuestionForm, CommentForm, UserDetailForm
 
 # @login_required
@@ -26,6 +26,15 @@ from .forms import QuestionForm, CommentForm, UserDetailForm
 
 @login_required
 def get_question(request):
+    user_detail = UserDetail.objects.get(user=request.user)
+    user_group = user_detail.user_group
+    user_access = RoleTable.objects.filter(
+        user_group=user_group,
+        access_name="ADD_QUESTION"
+    )
+    if not user_access:
+        return HttpResponse("Sorry, You cannot add question")
+
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:

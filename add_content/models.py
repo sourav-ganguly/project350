@@ -22,7 +22,7 @@ class Course(models.Model):
 
 
 class Chapter(models.Model):
-    name = models.CharField(max_length=50)
+    chapter_name = models.CharField(max_length=50)
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
@@ -33,7 +33,7 @@ class Chapter(models.Model):
         """
         String for representing the Model object.
         """
-        return str(self.name)
+        return str(self.chapter_name)
 
 
 class Question(models.Model):
@@ -103,13 +103,13 @@ class Comment(models.Model):
 
 
 class UserGroup(models.Model):
-    name = models.CharField(max_length=20)
+    group_name = models.CharField(max_length=20)
 
     def __str__(self):
         """
         String for representing the Model object.
         """
-        return str(name)
+        return str(self.group_name)
 
 
 class UserDetail(models.Model):
@@ -163,4 +163,4 @@ class RoleTable(models.Model):
         """
         String for representing the Model object.
         """
-        return str(self.access_name)
+        return str(self.user_group) + " " + str(self.access_name)
