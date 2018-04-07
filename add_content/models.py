@@ -128,7 +128,7 @@ class LogTable(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
-    operation = models.CharField(max_length=10)
+    operation = models.CharField(max_length=20)
     operation_time = models.DateTimeField("Date time operation occured")
 
     def __str__(self):
@@ -136,3 +136,18 @@ class LogTable(models.Model):
         String for representing the Model object.
         """
         return str(self.operation)
+
+
+class RoleTable(models.Model):
+    user_group = models.ForeignKey(
+        UserGroup,
+        on_delete=models.CASCADE,
+        null=True,
+    )
+    access_name = models.CharField(max_length=20)
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return str(self.access_name)
