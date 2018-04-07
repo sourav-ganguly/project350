@@ -21,6 +21,21 @@ class Course(models.Model):
         return self.course_code
 
 
+class Chapter(models.Model):
+    name = models.CharField(max_length=50)
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return str(self.name)
+
+
 class Question(models.Model):
     question_name = models.TextField(max_length=300, null=True)
     question_text = models.TextField(max_length=3000)
@@ -45,12 +60,19 @@ class Question(models.Model):
         default=PENDING,
         null=True,
     )
-
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
         null=True,
     )
+    chapter = models.ForeignKey(
+        Chapter,
+        on_delete=models.CASCADE,
+        null=True,
+    )
+    difficulty = models.TextField(max_length=20, null=True)
+    category = models.TextField(max_length=20, null=True)
+    medium = models.TextField(max_length=20, null=True)
 
     def __str__(self):
         """
@@ -111,15 +133,6 @@ class UserDetail(models.Model):
         String for representing the Model object.
         """
         return str(self.user)
-
-
-class Chapter(models.Model):
-    name = models.CharField(max_length=50)
-    course = models.ForeignKey(
-        Course,
-        on_delete=models.CASCADE,
-        null=True,
-    )
 
 
 class LogTable(models.Model):
